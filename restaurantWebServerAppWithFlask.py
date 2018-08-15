@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import time
 # import cgi
@@ -32,7 +32,9 @@ def printall():
     for menuItem in menuItems:
         output += menuItem.name + ", " + menuItem.course + ", " + menuItem.description + ", " + menuItem.price
         output += "</br>"
-    return output
+
+    return render_template("menu.html", restaurant=restaurant, items=menuItems)
+    # return output
 
 
 # Task 1: Create route for newMenuItem function here
