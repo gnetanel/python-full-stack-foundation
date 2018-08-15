@@ -9,10 +9,11 @@ from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Restaurant, MenuItem
 from database_setup import engine, Base
 
-Base.metadata.bind=engine
+Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 
 app = Flask(__name__)
+
 
 # stopped at https://classroom.udacity.com/courses/ud088/lessons/3593308717/concepts/36245586140923
 
@@ -33,26 +34,51 @@ def printall():
         output += "</br>"
     return output
 
+
 # Task 1: Create route for newMenuItem function here
 
-
+@app.route('/restaurant/<int:restaurant_id>/new')
 def newMenuItem(restaurant_id):
-    return "page to create a new menu item. Task 1 complete!"
+    output = ""
+    output += "<form method='post' action=''>" \
+              "<br>Name:" \
+              " <input type='text' name='name'>" \
+              "<br>Description:" \
+              " <input type='text' name='description'>" \
+              "<br>Price:" \
+              " <input type='text' name='price'>" \
+              "<br>Course:" \
+              " <input type='text' name='course'>" \
+              "<br>" \
+              " <input type='submit' value='Submit'>" \
+              "</form>"
+    return output
+
 
 # Task 2: Create route for editMenuItem function here
-
-
+@app.route('/restaurant/<int:restaurant_id>/<int:menu_id>/edit')
 def editMenuItem(restaurant_id, menu_id):
-    return "page to edit a menu item. Task 2 complete!"
+    output = ""
+    output += "<form method='post' action=''>" \
+              "<br>Name:" \
+              " <input type='text' name='name'>" \
+              "<br>Description:" \
+              " <input type='text' name='description'>" \
+              "<br>Price:" \
+              " <input type='text' name='price'>" \
+              "<br>Course:" \
+              " <input type='text' name='course'>" \
+              "<br>" \
+              " <input type='submit' value='Submit'>" \
+              "</form>"
+    return output
 
-# Task 3: Create a route for deleteMenuItem function here
 
-
+@app.route('/restaurant/<int:restaurant_id>/<int:menu_id>/delete')
 def deleteMenuItem(restaurant_id, menu_id):
-return "page to delete a menu item. Task 3 complete!"
+    return "page to delete a menu item. Task 3 complete!"
 
 
 if __name__ == "__main__":
     app.debug = True
-    app.run(host ='localhost', port = 5000)
-
+    app.run(host='localhost', port=5000)
