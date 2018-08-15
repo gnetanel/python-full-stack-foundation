@@ -2,6 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Restaurant, MenuItem
 from database_setup import engine, Base
+from flask import Flask
 
 Base.metadata.bind=engine
 DBSession = sessionmaker(bind=engine)

@@ -102,3 +102,8 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# Gal netanel changes
+*/.idea/workspace.xml
+*/.idea/tasks.xml
+restaurantmenu.db
