@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import time
 # import cgi
@@ -26,7 +26,17 @@ def restaurantsIndex():
     return render_template('restaurantsIndex.html', restaurants=restaurants)
 
 
-# Task 1: Create route for newMenuItem function here
+
+@app.route('/restaurants/<int:restaurant_id>/menu/JSON')
+def restaurants_json(restaurant_id):
+    session = DBSession()
+    restaurant = session.query(Restaurant).filter_by(id=restaurant_id).first()
+    items = session.query(MenuItem).filter_by(restaurantId=restaurant.id)
+    myArray = [i.serialize for i in items]
+    for ar in myArray:
+        print(ar)
+    return jsonify(myArray)
+
 
 @app.route('/restaurants/<int:restaurant_id>/')
 def restaurants(restaurant_id):
@@ -52,7 +62,6 @@ def newMenuItem(restaurant_id):
         return redirect(url_for('restaurants', restaurant_id=restaurant_id))
 
 
-# Task 2: Create route for editMenuItem function here
 @app.route('/restaurant/<int:restaurant_id>/<int:menu_id>/edit', methods=['GET', 'POST'])
 def editMenuItem(restaurant_id, menu_id):
     session = DBSession()
