@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import time
 # import cgi
@@ -48,6 +48,7 @@ def newMenuItem(restaurant_id):
                             price=request.form['price'], course=request.form['course'], restaurantId=restaurant_id)
         session.add(menuItem)
         session.commit()
+        flash("New menu item added")
         return redirect(url_for('restaurants', restaurant_id=restaurant_id))
 
 
@@ -86,9 +87,11 @@ def deleteMenuItem(restaurant_id, menu_id):
     if request.method == "POST":
         session.delete(menuItem)
         session.commit()
+        flash("Menu item deleted")
         return redirect(url_for('restaurants', restaurant_id=restaurant_id))
 
 
 if __name__ == "__main__":
+    app.secret_key = "mysecretkey"
     app.debug = True
     app.run(host='localhost', port=5000)
